@@ -24,6 +24,9 @@
     <Compile Include="global_variable.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="gui_sub_window.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="gui_windows.py">
       <SubType>Code</SubType>
     </Compile>
