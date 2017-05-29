@@ -5,6 +5,7 @@ import you_get_caller
 import global_variable
 import gui_windows
 import gui_sub_window
+import redirection
 
 def StartDownload():
 	video_info_generator = global_variable.you_get_caller_instance.GetVideoInfo(global_variable.gui_windows_instance.GetText())
@@ -14,6 +15,7 @@ def StartDownload():
 
 
 def main():
+	global_variable.redirection_instance = redirection.Redirection()
 	global_variable.you_get_caller_instance = you_get_caller.YouGetCaller()
 
 	root = tkinter.Tk()

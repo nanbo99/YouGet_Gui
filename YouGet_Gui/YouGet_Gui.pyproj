@@ -30,6 +30,9 @@
     <Compile Include="gui_windows.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="redirection.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="YouGet_Gui.py" />
     <Compile Include="you_get_caller.py">
       <SubType>Code</SubType>

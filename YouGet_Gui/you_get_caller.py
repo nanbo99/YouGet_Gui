@@ -1,8 +1,10 @@
 from you_get.common import any_download_playlist, any_download, download_main
 import os
 import global_variable
+from global_variable import redirection_instance
 import subprocess
 import re
+import redirection
 class YouGetCaller(object):
 	"""
 	you-get的调用类
@@ -34,30 +36,7 @@ class YouGetCaller(object):
 			all_video_profile: 所有的video_profile
 			whole_content: 全部返回的字符
 		"""
-		"""
-		以下是临时代码
-		temp_kwargs = self.kwargs
-		temp_kwargs['info_only'] = True
-		download_main(any_download, any_download_playlist, urls, **self.kwargs)
-		print(self.kwargs)
-		return self.kwargs
-		"""
-		for url in urls:
-			whole_content = str(subprocess.check_output(['python', '-m', 'you_get', '-i', url]), encoding='gb2312')
+		redirection_instance.SetupToRedirect()
 
-			re_rule_title = re.compile('title:.*')
-			re_rule_format = re.compile('format:.*')
-			re_rule_video_profile = re.compile('video-profile:.*')
-
-			text_title = re_rule_title.findall(whole_content)
-			text_profile = re_rule_video_profile.findall(whole_content)
-			text_format = re_rule_format.findall(whole_content)
-
-			all_format = []
-			all_video_profile = []
-
-			for single_format in text_format:
-				all_format.append(single_format[7:-1].replace(' ', ''))
-			for single_video_profile in text_profile:
-				all_video_profile.append(single_video_profile[14:-1].replace(' ', ''))
-			yield (text_title[6:-1].replace(' ', ''), all_format, all_video_profile,whole_content)
+		redirection_instance.Reset()
+		pass

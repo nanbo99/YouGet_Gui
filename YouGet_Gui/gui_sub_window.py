@@ -10,7 +10,7 @@ class GuiSubWindow():
 		self.master_ = master
 		self.frame_ = tkinter.Frame(self.master_)
 
-		self.video_info_generator_ = video_info_generator
+		#self.video_info_generator_ = video_info_generator
 		self.master_.title("Select")
 		self.CreateWidgets()
 
