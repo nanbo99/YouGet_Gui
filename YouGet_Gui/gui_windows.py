@@ -56,5 +56,5 @@ class GuiWindow():
 	def GetText(self):
 		"""获取Text控件中用户输入的信息"""
 
-		text = self.url_text.get("1.0",tkinter.END).split(';')
+		text = self.url_text.get("1.0",tkinter.END).split('\n')
 		return text

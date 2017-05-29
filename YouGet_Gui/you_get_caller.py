@@ -26,6 +26,32 @@ class YouGetCaller(object):
 	def SetDir(self,new_dir):
 		self.kwargs['output_dir'] = new_dir
 
+	def ParseInfo(self,raw_buffer):
+		info = {}
+		for single in raw_buffer.split('\n'):
+			if single.lower().startswith('site'):
+				info['site'] = single[5:].replace(' ', '')
+			elif single.lower().startswith('title'):
+				info['title'] = single[6:].replace(' ', '')
+			elif single.lower().startswith('type'):
+				info['type'] = single[5:].replace(' ', '')
+			elif single.lower().startswith('size'):
+				info['size'] = single[5:].replace(' ', '')
+			elif single.lower().startswith('streams'):
+				info['streams'] = {}
+			if single.lower().startswith('    # download-with'):
+				type_begin = single.find('--')
+				option_begin = single.find('=', type_begin)
+
+				type_ = single[type_begin + 2:option_begin]
+				option_ = single[option_begin + 1:-6]
+				try:
+					info['streams'][type_].append(option_)
+				except KeyError:
+					info['streams'][type_] = []
+					info['streams'][type_].append(option_)
+		return info
+
 	def GetVideoInfo(self,urls):
 		"""获取视频信息
 
@@ -39,13 +65,16 @@ class YouGetCaller(object):
 
 		kwargs = self.kwargs
 		kwargs['info_only'] = True
-		kwargs['json_output'] = True
 
-		download_main(any_download, any_download_playlist, urls, **kwargs)
-
-		json_output = global_variable.redirection_instance.GetBuffer()
-
+		info = []
+		for url in urls:
+			pack_url = [url]
+			try:
+				download_main(any_download, any_download_playlist, pack_url, **kwargs)
+			except:
+				global_variable.redirection_instance.PrintToScreen('Something unexpected happened')
+			output = global_variable.redirection_instance.GetBuffer()
+			info.append(self.ParseInfo(output))
 		global_variable.redirection_instance.Reset()
 
-		for single_json in json_output:
-			yield ast.literal_eval(single_json)
+		return info
