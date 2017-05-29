@@ -38,20 +38,20 @@ class YouGetCaller(object):
 			elif single.lower().startswith('size'):
 				info['size'] = single[5:].replace(' ', '')
 			elif single.lower().startswith('streams'):
-				info['streams'] = {}
+				info['streams'] = []
 			if single.lower().startswith('    # download-with'):
 				type_begin = single.find('--')
 				option_begin = single.find('=', type_begin)
 
 				type_ = single[type_begin + 2:option_begin]
 				option_ = single[option_begin + 1:-6]
-				try:
-					info['streams'][type_].append(option_)
-				except KeyError:
-					info['streams'][type_] = []
-					info['streams'][type_].append(option_)
-		return info
+				info['streams'].append(option_)
+				info['streams_type'] = type_
 
+		info['raw_buffer'] = raw_buffer
+		return info
+	def DownloadVideo(self,urls):
+		pass
 	def GetVideoInfo(self,urls):
 		"""获取视频信息
 
@@ -68,6 +68,8 @@ class YouGetCaller(object):
 
 		info = []
 		for url in urls:
+			if url == '':
+				break
 			pack_url = [url]
 			try:
 				download_main(any_download, any_download_playlist, pack_url, **kwargs)
@@ -75,6 +77,8 @@ class YouGetCaller(object):
 				global_variable.redirection_instance.PrintToScreen('Something unexpected happened')
 			output = global_variable.redirection_instance.GetBuffer()
 			info.append(self.ParseInfo(output))
+			global_variable.redirection_instance.flush()
 		global_variable.redirection_instance.Reset()
 
+		print(info)
 		return info

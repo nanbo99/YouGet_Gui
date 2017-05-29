@@ -9,6 +9,7 @@ class Redirection(object):
 		sys.stdout = self
 
 	def Reset(self):
+		self.buffer_ = ''
 		sys.stdout = self.console_backup_
 
 	def UpdateCallback(self):

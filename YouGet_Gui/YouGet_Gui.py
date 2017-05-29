@@ -9,7 +9,7 @@ import redirection
 
 def StartDownload():
 	video_info = global_variable.you_get_caller_instance.GetVideoInfo(global_variable.gui_windows_instance.GetText())
-
+	#video_info = ''
 	global_variable.gui_windows_instance.sub_window_root = tkinter.Toplevel(global_variable.gui_windows_instance.master_)
 	global_variable.gui_sub_windows_instance = gui_sub_window.GuiSubWindow(global_variable.gui_windows_instance.sub_window_root,video_info)
 
