@@ -7,9 +7,11 @@ import gui_windows
 import gui_sub_window
 
 def StartDownload():
-	global_variable.gui_windows_instance.sub_window_root = tkinter.Toplevel(global_variable.gui_windows_instance.master)
-	global_variable.gui_windows_instance.sub_window_instance = gui_sub_window.GuiSubWindow(global_variable.gui_windows_instance.sub_window_root)
-	pass
+	video_info_generator = global_variable.you_get_caller_instance.GetVideoInfo(global_variable.gui_windows_instance.GetText())
+
+	global_variable.gui_windows_instance.sub_window_root = tkinter.Toplevel(global_variable.gui_windows_instance.master_)
+	global_variable.gui_sub_windows_instance = gui_sub_window.GuiSubWindow(global_variable.gui_windows_instance.sub_window_root,video_info_generator)
+
 
 def main():
 	global_variable.you_get_caller_instance = you_get_caller.YouGetCaller()
@@ -18,8 +20,6 @@ def main():
 	global_variable.gui_windows_instance = gui_windows.GuiWindow(root)
 	root.title('You Get GUI')
 	root.mainloop()
-
-	pass
 
 if __name__ == '__main__':
 	global_variable.init()
