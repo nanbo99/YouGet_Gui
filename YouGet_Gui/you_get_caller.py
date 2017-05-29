@@ -1,7 +1,6 @@
 from you_get.common import any_download_playlist, any_download, download_main
 import os
 import global_variable
-from global_variable import redirection_instance
 import subprocess
 import re
 import redirection
@@ -15,7 +14,7 @@ class YouGetCaller(object):
 	"""
 
 	def __init__(self):
-		#self.DefaultKwargs()
+		self.DefaultKwargs()
 		pass
 	def DefaultKwargs(self):
 		default_dir = os.getcwd()
@@ -36,7 +35,17 @@ class YouGetCaller(object):
 			all_video_profile: 所有的video_profile
 			whole_content: 全部返回的字符
 		"""
-		redirection_instance.SetupToRedirect()
+		global_variable.redirection_instance.SetupToRedirect()
 
-		redirection_instance.Reset()
-		pass
+		kwargs = self.kwargs
+		kwargs['info_only'] = True
+		kwargs['json_output'] = True
+
+		download_main(any_download, any_download_playlist, urls, **kwargs)
+
+		json_output = global_variable.redirection_instance.GetBuffer()
+
+		global_variable.redirection_instance.Reset()
+
+		for single_json in json_output:
+			yield ast.literal_eval(single_json)

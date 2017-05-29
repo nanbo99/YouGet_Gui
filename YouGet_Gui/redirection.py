@@ -4,7 +4,7 @@ class Redirection(object):
 		self.buffer_ = []
 		self.last_message = ''
 
-	def SetupToRedirect():
+	def SetupToRedirect(self):
 		self.console_backup_ = sys.stdout
 		sys.stdout = self
 

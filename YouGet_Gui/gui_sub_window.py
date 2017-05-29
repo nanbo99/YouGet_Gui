@@ -25,4 +25,5 @@ class GuiSubWindow():
 
 		self.format_choice_combobox_ = ttk.Combobox(self.frame_)
 		self.format_choice_combobox_.grid(column = 0,row = 2,sticky = tkinter.N + tkinter.S + tkinter.E + tkinter.W)
-	
+
+
