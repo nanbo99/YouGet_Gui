@@ -6,7 +6,7 @@ import YouGet_Gui
 class GuiWindow():
 	"""使用Tkinter提供一个Gui的窗口"""
 
-	def __init__(self, master=None):
+	def __init__(self, master=None, **kwargs):
 		"""初始化"""
 		self.master_ = master
 		self.frame_ = tkinter.Frame(self.master_)
@@ -14,6 +14,8 @@ class GuiWindow():
 		self.CreateWidgets()
 
 		self.frame_.pack()
+
+		return super().__init__(**kwargs)
 
 	def OpenFileDialog(self):
 		filepath = tkinter.filedialog.askdirectory()
@@ -57,7 +59,7 @@ class GuiWindow():
 		self.status_bar_label_ = tkinter.Label(self.frame_)
 		self.status_bar_label_.grid(column = 0,row = 3,sticky = tkinter.W)
 		self.SetStatusBarText()
-
+		
 	def SetStatusBarText(self,text = 'Status Bar'):
 		self.status_bar_label_['text'] = text
 		pass

@@ -4,6 +4,11 @@ import global_variable
 import subprocess
 import re
 import redirection
+
+def Download_thread():
+
+		pass
+
 class YouGetCaller(object):
 	"""
 	you-get的调用类
@@ -28,15 +33,12 @@ class YouGetCaller(object):
 
 	def ParseInfo(self,raw_buffer):
 		info = {}
+		info['index'] = self.index_
 		for single in raw_buffer.split('\n'):
 			if single.lower().startswith('site'):
-				info['site'] = single[5:].replace(' ', '')
+				info['site'] = single[21:]
 			elif single.lower().startswith('title'):
-				info['title'] = single[6:].replace(' ', '')
-			elif single.lower().startswith('type'):
-				info['type'] = single[5:].replace(' ', '')
-			elif single.lower().startswith('size'):
-				info['size'] = single[5:].replace(' ', '')
+				info['title'] = single[21:]
 			elif single.lower().startswith('streams'):
 				info['streams'] = []
 			if single.lower().startswith('    # download-with'):
@@ -50,7 +52,10 @@ class YouGetCaller(object):
 
 		info['raw_buffer'] = raw_buffer
 		return info
+	
 	def DownloadVideo(self,urls):
+		"""下载视频"""
+
 		pass
 	def GetVideoInfo(self,urls):
 		"""获取视频信息
@@ -67,6 +72,7 @@ class YouGetCaller(object):
 		kwargs['info_only'] = True
 
 		info = []
+		self.index_ = 0
 		for url in urls:
 			if url == '' or url.isspace():
 				break

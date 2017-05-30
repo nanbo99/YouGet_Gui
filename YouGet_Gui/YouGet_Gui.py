@@ -6,6 +6,7 @@ import global_variable
 import gui_windows
 import gui_sub_window
 import redirection
+import threading
 
 def StartPreDownload():
 	global_variable.gui_windows_instance.SetStatusBarText('Working,please wait')
@@ -20,6 +21,8 @@ def StartDownload(config):
 	pass
 
 def main():
+	global_variable.global_lock = threading.Lock()
+
 	global_variable.redirection_instance = redirection.Redirection()
 	global_variable.you_get_caller_instance = you_get_caller.YouGetCaller()
 

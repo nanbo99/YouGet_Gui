@@ -8,7 +8,7 @@ import YouGet_Gui
 class GuiSubWindow():
 	"""提供选择清晰度的窗口"""
 
-	def __init__(self,master=None,video_info=None):
+	def __init__(self,master=None,video_info=None, **kwargs):
 		self.master_ = master
 		self.frame_ = tkinter.Frame(self.master_)
 
@@ -20,6 +20,7 @@ class GuiSubWindow():
 		self.current_display = -1
 		self.DisplayInfo()
 
+		return super().__init__(**kwargs)
 
 	def CreateWidgets(self):
 		self.info_text_ = tkinter.Text(self.frame_)
@@ -35,10 +36,11 @@ class GuiSubWindow():
 		self.ok_button_ = tkinter.Button(self.frame_,command = self.GetNext)
 		self.ok_button_.grid(column = 1,row = 2,sticky = tkinter.N + tkinter.S + tkinter.E + tkinter.W)
 
-		self.chosen_type = []
+		self.user_choice_ = {}
 
 	def GetNext(self):
-		self.chosen_type.append(self.choice_combobox_.get())
+
+		self.chosen_type[self.current_display['index']] = self.choice_combobox_.get()
 		
 		if self.current_display == len(self.video_info_) - 1:
 			#全部弄完

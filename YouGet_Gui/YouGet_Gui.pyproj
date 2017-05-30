@@ -21,6 +21,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="download_state.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="download_state_gui.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="global_variable.py">
       <SubType>Code</SubType>
     </Compile>
