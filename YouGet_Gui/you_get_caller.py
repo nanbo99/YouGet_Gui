@@ -68,7 +68,7 @@ class YouGetCaller(object):
 
 		info = []
 		for url in urls:
-			if url == '':
+			if url == '' or url.isspace():
 				break
 			pack_url = [url]
 			try:
@@ -80,5 +80,5 @@ class YouGetCaller(object):
 			global_variable.redirection_instance.flush()
 		global_variable.redirection_instance.Reset()
 
-		print(info)
+		# print(info)
 		return info
